@@ -278,7 +278,7 @@
     });
 
     function resetAll() {
-        if(confirm("Are you sure you want to clear your order?")) {
+        if(confirm("Είστε σίγουροι ότι θέλετε να αδειάσετε το καλάθι σας;")) {
             document.querySelectorAll('.qty').forEach(q => q.innerText = "0");
             updateUI();
         }
