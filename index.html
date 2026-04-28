@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Open BBQ Menu</title>
+    <style>
+        :root {
+            --primary-red: #d32f2f;
+            --charcoal: #333;
+            --coin-gold: #fbc02d;
+            --light-gray: #f8f9fa;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            margin: 0;
+            padding: 20px 10px 200px 10px; /* Space for the footer */
+            background-color: var(--light-gray);
+            color: var(--charcoal);
+        }
+        .header { text-align: center; }
+        
+        .top-total-box {
+            background: var(--charcoal);
+            color: white;
+            text-align: center;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+        .top-total-box span { color: var(--coin-gold); font-weight: bold; }
+
+        .disclaimer {
+            background: #fff3cd;
+            padding: 12px;
+            border-radius: 8px;
+            border-left: 5px solid #ffeeba;
+            margin-bottom: 20px;
+            font-size: 0.85rem;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        th { background: #eee; color: var(--charcoal); padding: 12px 8px; text-align: left; font-size: 0.9rem; }
+        td { border-bottom: 1px solid #eee; padding: 10px 8px; vertical-align: middle; }
+        
+        .item-img { width: 50px; height: 50px; object-fit: cover; border-radius: 4px; }
+        .item-name { font-weight: bold; display: block; }
+        .info-text { font-size: 0.75rem; color: #666; }
+        
+        .controls { display: flex; align-items: center; gap: 8px; }
+        .btn {
+            background: var(--primary-red);
+            color: white;
+            border: none;
+            width: 32px;
+            height: 32px;
+            border-radius: 6px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .qty { font-weight: bold; min-width: 20px; text-align: center; font-size: 1.1rem; }
+
+        /* Floating Footer */
+        .sticky-footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: var(--charcoal);
+            color: white;
+            padding: 15px;
+            box-sizing: border-box;
+            box-shadow: 0 -4px 15px rgba(0,0,0,0.4);
+            z-index: 1000;
+            border-top: 3px solid var(--coin-gold);
+        }
+        .synopsis {
+            font-size: 0.85rem;
+            max-height: 80px;
+            overflow-y: auto;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #555;
+            padding-bottom: 8px;
+            color: #ccc;
+        }
+        .synopsis-item { display: flex; justify-content: space-between; margin-bottom: 2px; }
+        
+        .footer-main {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .total-price { font-size: 1.6rem; font-weight: bold; color: var(--coin-gold); }
+
+        /* Reset Button Styling */
+        .reset-btn {
+            background: #444;
+            color: #ff6b6b;
+            border: 1px solid #ff6b6b;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            cursor: pointer;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+        .reset-btn:active { background: #ff6b6b; color: white; }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h1>🔥 BBQ 2026</h1>
+</div>
+
+<div class="top-total-box">
+    Current Total: <span id="top-total">0</span> Coins
+</div>
+
+<div class="disclaimer">
+    <strong>Quick Guide:</strong> Select your items. Show this screen to the cashier to pay with your coins!
+</div>
+
+<table>
+    <thead>
+        <tr>
+            <th>Dish</th>
+            <th>Info</th>
+            <th>Coins</th>
+            <th>Qty</th>
+        </tr>
+    </thead>
+    <tbody id="menu-body">
+        <tr data-name="Pork Souvlaki" data-price="5">
+            <td><img src="https://via.placeholder.com/50" alt="Souvlaki" class="item-img"></td>
+            <td><span class="item-name">Souvlaki</span><span class="info-text">2 skewers</span></td>
+            <td>5</td>
+            <td>
+                <div class="controls">
+                    <button class="btn minus">-</button>
+                    <span class="qty">0</span>
+                    <button class="btn plus">+</button>
+                </div>
+            </td>
+        </tr>
+        <tr data-name="Beef Burger" data-price="6">
+            <td><img src="https://via.placeholder.com/50" alt="Burger" class="item-img"></td>
+            <td><span class="item-name">Burger</span><span class="info-text">Cheese/Salad</span></td>
+            <td>6</td>
+            <td>
+                <div class="controls">
+                    <button class="btn minus">-</button>
+                    <span class="qty">0</span>
+                    <button class="btn plus">+</button>
+                </div>
+            </td>
+        </tr>
+        <tr data-name="Grilled Corn" data-price="3">
+            <td><img src="https://via.placeholder.com/50" alt="Corn" class="item-img"></td>
+            <td><span class="item-name">Corn</span><span class="info-text">Full cob</span></td>
+            <td>3</td>
+            <td>
+                <div class="controls">
+                    <button class="btn minus">-</button>
+                    <span class="qty">0</span>
+                    <button class="btn plus">+</button>
+                </div>
+            </td>
+        </tr>
+        <tr data-name="Refreshment" data-price="2">
+            <td><img src="https://via.placeholder.com/50" alt="Drink" class="item-img"></td>
+            <td><span class="item-name">Drink</span><span class="info-text">330ml Can</span></td>
+            <td>2</td>
+            <td>
+                <div class="controls">
+                    <button class="btn minus">-</button>
+                    <span class="qty">0</span>
+                    <button class="btn plus">+</button>
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<div class="sticky-footer">
+    <div id="synopsis-container" class="synopsis">Your basket is empty</div>
+    <div class="footer-main">
+        <div>
+            <button class="reset-btn" onclick="resetAll()">🗑 Reset</button>
+        </div>
+        <div style="text-align: right;">
+            <span style="font-size: 0.8rem; display: block; color: #aaa;">Total:</span>
+            <span class="total-price"><span id="grand-total">0</span> Coins</span>
+        </div>
+    </div>
+</div>
+
+<script>
+    const menuBody = document.getElementById('menu-body');
+    const grandTotalDisplay = document.getElementById('grand-total');
+    const topTotalDisplay = document.getElementById('top-total');
+    const synopsisContainer = document.getElementById('synopsis-container');
+
+    // Handle + and - clicks
+    menuBody.addEventListener('click', (e) => {
+        if (e.target.classList.contains('plus') || e.target.classList.contains('minus')) {
+            const row = e.target.closest('tr');
+            const qtySpan = row.querySelector('.qty');
+            let currentQty = parseInt(qtySpan.innerText);
+            
+            if (e.target.classList.contains('plus')) {
+                currentQty++;
+            } else if (e.target.classList.contains('minus') && currentQty > 0) {
+                currentQty--;
+            }
+            
+            qtySpan.innerText = currentQty;
+            updateEverything();
+        }
+    });
+
+    // Reset Function
+    function resetAll() {
+        if(confirm("Clear your whole order?")) {
+            const quantities = document.querySelectorAll('.qty');
+            quantities.forEach(q => q.innerText = "0");
+            updateEverything();
+        }
+    }
+
+    function updateEverything() {
+        let total = 0;
+        let synopsisHTML = '';
+        const rows = menuBody.querySelectorAll('tr');
+        
+        rows.forEach(row => {
+            const name = row.getAttribute('data-name');
+            const price = parseInt(row.getAttribute('data-price'));
+            const qty = parseInt(row.querySelector('.qty').innerText);
+            
+            if (qty > 0) {
+                total += (price * qty);
+                synopsisHTML += `
+                    <div class="synopsis-item">
+                        <span>${qty}x ${name}</span>
+                        <span>${qty * price} Coins</span>
+                    </div>`;
+            }
+        });
+        
+        grandTotalDisplay.innerText = total;
+        topTotalDisplay.innerText = total;
+        synopsisContainer.innerHTML = synopsisHTML || 'Your basket is empty';
+    }
+</script>
+
+</body>
+</html>
