@@ -14,23 +14,12 @@
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             margin: 0;
-            padding: 20px 10px 200px 10px; /* Space for the footer */
+            padding: 20px 10px 200px 10px; 
             background-color: var(--light-gray);
             color: var(--charcoal);
         }
-        .header { text-align: center; }
+        .header { text-align: center; margin-bottom: 20px; }
         
-        .top-total-box {
-            background: var(--charcoal);
-            color: white;
-            text-align: center;
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 15px;
-            font-size: 1.2rem;
-        }
-        .top-total-box span { color: var(--coin-gold); font-weight: bold; }
-
         .disclaimer {
             background: #fff3cd;
             padding: 12px;
@@ -38,6 +27,7 @@
             border-left: 5px solid #ffeeba;
             margin-bottom: 20px;
             font-size: 0.85rem;
+            line-height: 1.4;
         }
         
         table {
@@ -47,13 +37,12 @@
             border-radius: 8px;
             overflow: hidden;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            margin-bottom: 20px;
         }
         th { background: #eee; color: var(--charcoal); padding: 12px 8px; text-align: left; font-size: 0.9rem; }
         td { border-bottom: 1px solid #eee; padding: 10px 8px; vertical-align: middle; }
         
-        .item-img { width: 50px; height: 50px; object-fit: cover; border-radius: 4px; }
-        .item-name { font-weight: bold; display: block; }
+        .item-img { width: 55px; height: 55px; object-fit: cover; border-radius: 4px; }
+        .item-name { font-weight: bold; display: block; font-size: 1rem; }
         .info-text { font-size: 0.75rem; color: #666; }
         
         .controls { display: flex; align-items: center; gap: 8px; }
@@ -61,16 +50,17 @@
             background: var(--primary-red);
             color: white;
             border: none;
-            width: 32px;
-            height: 32px;
+            width: 34px;
+            height: 34px;
             border-radius: 6px;
             font-size: 1.2rem;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
+            touch-action: manipulation; /* Prevents zooming on fast double-taps */
         }
-        .qty { font-weight: bold; min-width: 20px; text-align: center; font-size: 1.1rem; }
+        .qty { font-weight: bold; min-width: 24px; text-align: center; font-size: 1.1rem; }
 
         /* Floating Footer */
         .sticky-footer {
@@ -88,49 +78,44 @@
         }
         .synopsis {
             font-size: 0.85rem;
-            max-height: 80px;
+            max-height: 90px;
             overflow-y: auto;
             margin-bottom: 10px;
             border-bottom: 1px solid #555;
             padding-bottom: 8px;
             color: #ccc;
         }
-        .synopsis-item { display: flex; justify-content: space-between; margin-bottom: 2px; }
+        .synopsis-item { display: flex; justify-content: space-between; margin-bottom: 3px; }
         
         .footer-main {
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
-        .total-price { font-size: 1.6rem; font-weight: bold; color: var(--coin-gold); }
+        .total-price { font-size: 1.7rem; font-weight: bold; color: var(--coin-gold); }
 
-        /* Reset Button Styling */
         .reset-btn {
-            background: #444;
+            background: transparent;
             color: #ff6b6b;
             border: 1px solid #ff6b6b;
-            padding: 5px 10px;
+            padding: 6px 12px;
             border-radius: 4px;
-            font-size: 0.7rem;
+            font-size: 0.75rem;
             cursor: pointer;
             text-transform: uppercase;
             font-weight: bold;
         }
-        .reset-btn:active { background: #ff6b6b; color: white; }
     </style>
 </head>
 <body>
 
 <div class="header">
-    <h1>🔥 BBQ 2026</h1>
-</div>
-
-<div class="top-total-box">
-    Current Total: <span id="top-total">0</span> Coins
+    <h1>🔥 Summer BBQ 2026</h1>
 </div>
 
 <div class="disclaimer">
-    <strong>Quick Guide:</strong> Select your items. Show this screen to the cashier to pay with your coins!
+    <strong>How to use:</strong> Adjust quantities below to see your total. 
+    Exchange Euros for <strong>Coins</strong> at the entrance to pay!
 </div>
 
 <table>
@@ -144,7 +129,7 @@
     </thead>
     <tbody id="menu-body">
         <tr data-name="Pork Souvlaki" data-price="5">
-            <td><img src="https://via.placeholder.com/50" alt="Souvlaki" class="item-img"></td>
+            <td><img src="https://via.placeholder.com/55" alt="Souvlaki" class="item-img"></td>
             <td><span class="item-name">Souvlaki</span><span class="info-text">2 skewers</span></td>
             <td>5</td>
             <td>
@@ -156,8 +141,8 @@
             </td>
         </tr>
         <tr data-name="Beef Burger" data-price="6">
-            <td><img src="https://via.placeholder.com/50" alt="Burger" class="item-img"></td>
-            <td><span class="item-name">Burger</span><span class="info-text">Cheese/Salad</span></td>
+            <td><img src="https://via.placeholder.com/55" alt="Burger" class="item-img"></td>
+            <td><span class="item-name">Burger</span><span class="info-text">Cheese & Salad</span></td>
             <td>6</td>
             <td>
                 <div class="controls">
@@ -168,8 +153,8 @@
             </td>
         </tr>
         <tr data-name="Grilled Corn" data-price="3">
-            <td><img src="https://via.placeholder.com/50" alt="Corn" class="item-img"></td>
-            <td><span class="item-name">Corn</span><span class="info-text">Full cob</span></td>
+            <td><img src="https://via.placeholder.com/55" alt="Corn" class="item-img"></td>
+            <td><span class="item-name">Corn</span><span class="info-text">Butter & Salt</span></td>
             <td>3</td>
             <td>
                 <div class="controls">
@@ -179,9 +164,9 @@
                 </div>
             </td>
         </tr>
-        <tr data-name="Refreshment" data-price="2">
-            <td><img src="https://via.placeholder.com/50" alt="Drink" class="item-img"></td>
-            <td><span class="item-name">Drink</span><span class="info-text">330ml Can</span></td>
+        <tr data-name="Drink" data-price="2">
+            <td><img src="https://via.placeholder.com/55" alt="Drink" class="item-img"></td>
+            <td><span class="item-name">Cold Drink</span><span class="info-text">330ml Can</span></td>
             <td>2</td>
             <td>
                 <div class="controls">
@@ -197,12 +182,10 @@
 <div class="sticky-footer">
     <div id="synopsis-container" class="synopsis">Your basket is empty</div>
     <div class="footer-main">
-        <div>
-            <button class="reset-btn" onclick="resetAll()">🗑 Reset</button>
-        </div>
+        <button class="reset-btn" onclick="resetAll()">🗑 Reset</button>
         <div style="text-align: right;">
-            <span style="font-size: 0.8rem; display: block; color: #aaa;">Total:</span>
-            <span class="total-price"><span id="grand-total">0</span> Coins</span>
+            <span style="font-size: 0.8rem; display: block; color: #aaa;">Total Coins:</span>
+            <span class="total-price" id="grand-total">0</span>
         </div>
     </div>
 </div>
@@ -210,10 +193,9 @@
 <script>
     const menuBody = document.getElementById('menu-body');
     const grandTotalDisplay = document.getElementById('grand-total');
-    const topTotalDisplay = document.getElementById('top-total');
     const synopsisContainer = document.getElementById('synopsis-container');
 
-    // Handle + and - clicks
+    // Click logic for +/-
     menuBody.addEventListener('click', (e) => {
         if (e.target.classList.contains('plus') || e.target.classList.contains('minus')) {
             const row = e.target.closest('tr');
@@ -231,11 +213,9 @@
         }
     });
 
-    // Reset Function
     function resetAll() {
-        if(confirm("Clear your whole order?")) {
-            const quantities = document.querySelectorAll('.qty');
-            quantities.forEach(q => q.innerText = "0");
+        if(confirm("Clear everything and start over?")) {
+            document.querySelectorAll('.qty').forEach(q => q.innerText = "0");
             updateEverything();
         }
     }
@@ -261,7 +241,6 @@
         });
         
         grandTotalDisplay.innerText = total;
-        topTotalDisplay.innerText = total;
         synopsisContainer.innerHTML = synopsisHTML || 'Your basket is empty';
     }
 </script>
