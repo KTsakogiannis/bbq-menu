@@ -286,9 +286,9 @@
 </div>
 
 <div class="sticky-footer">
-    <div id="synopsis-container" class="synopsis">Basket is empty</div>
+    <div id="synopsis-container" class="synopsis">Το καλάθι σας είναι άδειο</div>
     <div class="footer-main">
-        <button class="reset-btn" onclick="showModal()">🗑 RESET</button>
+        <button class="reset-btn" onclick="showModal()">🗑 Άδειασμα Καλαθιού</button>
         <div style="text-align: right;">
             <span class="total-price" id="grand-total">0</span> <small style="color:var(--coin-gold)">ΜΑΡΚΕΣ</small>
         </div>
@@ -297,10 +297,10 @@
 
 <div id="resetModal">
     <div class="modal-content">
-        <h3>Clear Order?</h3>
+        <h3>Άδειασμα Καλαθιού;</h3>
         <div style="display:flex; gap:10px; margin-top:20px;">
-            <button onclick="closeModal()" style="flex:1; padding:10px; border:none; border-radius:8px; background:#eee;">No</button>
-            <button onclick="confirmReset()" style="flex:1; padding:10px; border:none; border-radius:8px; background:#ff6b6b; color:white;">Yes</button>
+            <button onclick="closeModal()" style="flex:1; padding:10px; border:none; border-radius:8px; background:#eee;">ΟΧΙ</button>
+            <button onclick="confirmReset()" style="flex:1; padding:10px; border:none; border-radius:8px; background:#ff6b6b; color:white;">ΝΑΙ</button>
         </div>
     </div>
 </div>
@@ -341,7 +341,7 @@
             }
         });
         grandTotalDisplay.innerText = total;
-        synopsisContainer.innerHTML = html || 'Basket is empty';
+        synopsisContainer.innerHTML = html || 'Το καλάθι σας είναι άδειο';
     }
 
     let idx = 0;
