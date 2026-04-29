@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Summer BBQ 2026 Menu</title>
+    <style>
+        :root {
+            --primary-red: #d32f2f;
+            --charcoal: #333;
+            --coin-gold: #fbc02d;
+            --light-gray: #f8f9fa;
+            --white: #ffffff;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            margin: 0;
+            padding: 20px 10px 220px 10px; /* Space for the sticky footer */
+            background-color: var(--light-gray);
+            color: var(--charcoal);
+        }
+
+        .header { text-align: center; margin-bottom: 20px; }
+        .header h1 { margin: 0; color: var(--charcoal); }
+
+        .disclaimer {
+            background: #fff3cd;
+            padding: 12px;
+            border-radius: 8px;
+            border-left: 5px solid #ffeeba;
+            margin-bottom: 20px;
+            font-size: 0.85rem;
+            line-height: 1.4;
+        }
+
+        /* Menu Table Styling */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--white);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            margin-bottom: 30px;
+        }
+
+        th { background: #f1f1f1; color: var(--charcoal); padding: 12px 8px; text-align: left; font-size: 0.8rem; text-transform: uppercase; }
+        td { border-bottom: 1px solid #f1f1f1; padding: 12px 8px; vertical-align: middle; }
+
+        .item-img { width: 55px; height: 55px; object-fit: cover; border-radius: 8px; background: #eee; }
+        .item-name { font-weight: bold; display: block; font-size: 1rem; margin-bottom: 2px; }
+        .info-text { font-size: 0.75rem; color: #777; line-height: 1.2; display: block; }
+        .price-cell { font-weight: 600; color: var(--charcoal); }
+
+        /* Controls */
+        .controls { display: flex; align-items: center; gap: 10px; }
+        .btn {
+            background: var(--primary-red);
+            color: white;
+            border: none;
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            font-size: 1.4rem;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            touch-action: manipulation;
+        }
+        .btn:active { transform: scale(0.95); opacity: 0.9; }
+        .qty { font-weight: bold; min-width: 24px; text-align: center; font-size: 1.2rem; }
+
+        /* Sponsor Carousel */
+        .sponsor-section { margin-top: 10px; }
+        .sponsor-title {
+            text-align: center;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #999;
+            margin-bottom: 12px;
+        }
+        .carousel-viewport {
+            width: 100%;
+            overflow: hidden;
+            background: var(--white);
+            border-radius: 12px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        .carousel-container {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+            width: 100%;
+        }
+        .carousel-item {
+            flex: 0 0 100%;
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .carousel-item img {
+            max-width: 70%;
+            max-height: 70%;
+            object-fit: contain;
+            opacity: 0.8;
+        }
+
+        /* Floating Sticky Footer */
+        .sticky-footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: var(--charcoal);
+            color: white;
+            padding: 15px 20px;
+            box-sizing: border-box;
+            box-shadow: 0 -4px 20px rgba(0,0,0,0.3);
+            z-index: 1000;
+            border-top: 4px solid var(--coin-gold);
+        }
+
+        .synopsis {
+            font-size: 0.85rem;
+            max-height: 80px;
+            overflow-y: auto;
+            margin-bottom: 12px;
+            border-bottom: 1px solid #444;
+            padding-bottom: 10px;
+            color: #bbb;
+        }
+        .synopsis-item { display: flex; justify-content: space-between; margin-bottom: 4px; }
+        .synopsis-item span:last-child { color: var(--coin-gold); }
+
+        .footer-main {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .total-price { font-size: 1.8rem; font-weight: bold; color: var(--coin-gold); }
+
+        .reset-btn {
+            background: transparent;
+            color: #ff6b6b;
+            border: 1px solid #ff6b6b;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 0.7rem;
+            cursor: pointer;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h1>🔥 BBQ 2026</h1>
+</div>
+
+<div class="disclaimer">
+    <strong>Πώς δουλεύει:</strong> Διαλέξτε τα φαγητά σας παρακάτω. 
+    Δείτε το <strong>σύνολο</strong> στο κάτω μέρος της σελίδας. Ζητήστε τις αντίστοιχες <strong>Τάπες</strong> στο ταμείο.
+    Εξαργυρώστε τις Τάπες σας στο κάθε μπαρ.
+</div>
+
+<table>
+    <thead>
+        <tr>
+            <th>Ειδος</th>
+            <th>Πληροφοριες</th>
+            <th>Ταπες</th>
+            <th>Ποσοτητα</th>
+        </tr>
+    </thead>
+    <tbody id="menu-body">
+        <tr data-name="Pork Souvlaki" data-price="5">
+            <td><img src="food/grilled-pork-skewer-souvlaki-oregano-250nw-2366543579.webp" alt="Souvlaki" class="item-img"></td>
+            <td><span class="item-name">Souvlaki</span><span class="info-text">2 skewers + bread</span></td>
+            <td class="price-cell">5</td>
+            <td>
+                <div class="controls">
+                    <button class="btn minus">-</button>
+                    <span class="qty">0</span>
+                    <button class="btn plus">+</button>
+                </div>
+            </td>
+        </tr>
+        <tr data-name="Beef Burger" data-price="6">
+            <td><img src="food/pngegg(97).png" alt="Burger" class="item-img"></td>
+            <td><span class="item-name">Burger</span><span class="info-text">Black Angus, Cheese</span></td>
+            <td class="price-cell">6</td>
+            <td>
+                <div class="controls">
+                    <button class="btn minus">-</button>
+                    <span class="qty">0</span>
+                    <button class="btn plus">+</button>
+                </div>
+            </td>
+        </tr>
+        <tr data-name="Grilled Corn" data-price="3">
+            <td><img src="food/pngegg(98).png" alt="Corn" class="item-img"></td>
+            <td><span class="item-name">Corn</span><span class="info-text">Full cob, buttered</span></td>
+            <td class="price-cell">3</td>
+            <td>
+                <div class="controls">
+                    <button class="btn minus">-</button>
+                    <span class="qty">0</span>
+                    <button class="btn plus">+</button>
+                </div>
+            </td>
+        </tr>
+        <tr data-name="Drink" data-price="2">
+            <td><img src="food/pngegg(99).png" alt="Drink" class="item-img"></td>
+            <td><span class="item-name">Drink</span><span class="info-text">Soda or Beer (330ml)</span></td>
+            <td class="price-cell">2</td>
+            <td>
+                <div class="controls">
+                    <button class="btn minus">-</button>
+                    <span class="qty">0</span>
+                    <button class="btn plus">+</button>
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<div class="sponsor-section">
+    <div class="sponsor-title">Υποστηρικτες και χορηγοι μας</div>
+    <div class="carousel-viewport">
+        <div class="carousel-container" id="carousel">
+            <div class="carousel-item"><img src="sponsors/logo_en.png" alt="Sponsor 1"></div>
+            <div class="carousel-item"><img src="sponsors/ellada-2.0-logo_gr.png" alt="Sponsor 2"></div>
+            <div class="carousel-item"><img src="sponsors/Panathinaikos_BC_logo.svg.png" alt="Sponsor 3"></div>
+            <div class="carousel-item"><img src="https://via.placeholder.com/300x100?text=SPONSOR+4" alt="Sponsor 4"></div>
+        </div>
+    </div>
+</div>
+
+<div class="sticky-footer">
+    <div id="synopsis-container" class="synopsis">Το καλάθι σας είναι άδειο</div>
+    <div class="footer-main">
+        <button class="reset-btn" onclick="resetAll()">🗑 Αδειασμα καλαθιου</button>
+        <div style="text-align: right;">
+            <span style="font-size: 0.75rem; display: block; color: #aaa; text-transform: uppercase;">Συνολικες Ταπες</span>
+            <span class="total-price" id="grand-total">0</span>
+        </div>
+    </div>
+</div>
+
+<script>
+    const menuBody = document.getElementById('menu-body');
+    const grandTotalDisplay = document.getElementById('grand-total');
+    const synopsisContainer = document.getElementById('synopsis-container');
+    const carousel = document.getElementById('carousel');
+
+    // --- Quantity Logic ---
+    menuBody.addEventListener('click', (e) => {
+        if (e.target.classList.contains('plus') || e.target.classList.contains('minus')) {
+            const row = e.target.closest('tr');
+            const qtySpan = row.querySelector('.qty');
+            let currentQty = parseInt(qtySpan.innerText);
+            
+            if (e.target.classList.contains('plus')) {
+                currentQty++;
+            } else if (e.target.classList.contains('minus') && currentQty > 0) {
+                currentQty--;
+            }
+            
+            qtySpan.innerText = currentQty;
+            updateUI();
+        }
+    });
+
+    function resetAll() {
+        if(confirm("Είστε σίγουροι ότι θέλετε να αδειάσετε το καλάθι σας;")) {
+            document.querySelectorAll('.qty').forEach(q => q.innerText = "0");
+            updateUI();
+        }
+    }
+
+    function updateUI() {
+        let total = 0;
+        let synopsisHTML = '';
+        const rows = menuBody.querySelectorAll('tr');
+        
+        rows.forEach(row => {
+            const name = row.getAttribute('data-name');
+            const price = parseInt(row.getAttribute('data-price'));
+            const qty = parseInt(row.querySelector('.qty').innerText);
+            
+            if (qty > 0) {
+                total += (price * qty);
+                synopsisHTML += `
+                    <div class="synopsis-item">
+                        <span>${qty}x ${name}</span>
+                        <span>${qty * price} Τάπες</span>
+                    </div>`;
+            }
+        });
+        
+        grandTotalDisplay.innerText = total;
+        synopsisContainer.innerHTML = synopsisHTML || 'Το καλάθι σας είναι άδειο';
+    }
+
+    // --- Auto-Slide Carousel Logic ---
+    let currentIndex = 0;
+    const totalSponsors = document.querySelectorAll('.carousel-item').length;
+
+    function slideSponsors() {
+        currentIndex++;
+        if (currentIndex >= totalSponsors) {
+            currentIndex = 0;
+        }
+        const offset = currentIndex * -100;
+        carousel.style.transform = `translateX(${offset}%)`;
+    }
+
+    setInterval(slideSponsors, 3000); // Slide every 3 seconds
+</script>
+
+</body>
+</html>
