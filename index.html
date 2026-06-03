@@ -19,7 +19,13 @@
             padding: 20px 0 220px 0; /* 0 side padding to let table hit edges if needed */
             background-color: var(--light-gray);
             color: var(--charcoal);
-            background-color: #12482b;
+            /* MULTIPLE BACKGROUNDS: PNG overlay first, solid green second */
+            background-image: url('logo/contoure.png'), linear-gradient(#12482b, #12482b);
+    
+            /* Optional sizing/repeating rules depending on your PNG type */
+            background-repeat: repeat; /* Use 'repeat' for patterns, 'no-repeat' for single images */
+            background-position: center;
+            background-size: cover; /* Change to 'cover' if it's a giant full-screen graphic */
         }
 
         .container {
@@ -255,10 +261,10 @@
                 </div>
             </td>
         </tr>
-        <tr data-name="Νερό x2" data-price="1">
-            <td><img src="food/11.svg" alt="Νερό x2" class="item-img"></td>
+        <tr data-name="Νερό" data-price="0.5">
+            <td><img src="food/11.svg" alt="Νερό" class="item-img"></td>
             <td><span class="item-name">Νερό</span><span class="info-text">Μπουκαλάκι νερό (500ml)</span></td>
-            <td class="price-cell">1</td>
+            <td class="price-cell">0.5</td>
             <td>
                 <div class="controls">
                     <button class="btn minus">-</button>
@@ -343,12 +349,14 @@
         document.querySelectorAll('#menu-body tr').forEach(row => {
             const q = parseInt(row.querySelector('.qty').innerText);
             if (q > 0) {
-                const p = parseInt(row.dataset.price);
-                total += (q * p);
-                html += `<div class="synopsis-item"><span>${q}x ${row.dataset.name}</span><span>${q*p}</span></div>`;
+                const p = parseFloat(row.dataset.price); // Changed from parseInt to parseFloat
+            const subtotal = q * p;
+            total += subtotal;
+            // Using parseFloat().toString() removes trailing zeros (e.g., 1.5 instead of 1.50)
+            html += `<div class="synopsis-item"><span>${q}x ${row.dataset.name}</span><span>${parseFloat(subtotal.toFixed(2))}</span></div>`;
             }
         });
-        grandTotalDisplay.innerText = total;
+        grandTotalDisplay.innerText = parseFloat(total.toFixed(2));
         synopsisContainer.innerHTML = html || 'Το καλάθι σας είναι άδειο';
     }
 
